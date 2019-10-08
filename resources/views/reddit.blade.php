@@ -2,7 +2,7 @@
     <ul>
         @foreach($articles as $article)
             <li style="@if($loop->odd) background-color: #dadada; @endif">
-                {{ $article['data']['title'] }}
+                {{ $article['title'] }}
             </li>
         @endforeach
     </ul>

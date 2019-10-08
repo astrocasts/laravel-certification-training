@@ -14,6 +14,16 @@ class JsonDatabaseRedditClient implements RedditClient
             abort(404);
         }
 
+        return collect(json_decode(file_get_contents(
+            $jsonDatabase),
+            true
+        )['data']['children'])->map(function ($article) {
+            return [
+                'id' => $article->data->id,
+                ''
+            ]
+        })
+
         return json_decode(file_get_contents(
             $jsonDatabase),
             true

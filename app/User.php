@@ -10,6 +10,14 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function __construct(array $attributes = [])
+    {
+        print " [ a ]\n";
+
+        parent::__construct($attributes);
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
