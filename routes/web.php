@@ -53,3 +53,7 @@ Route::get('r-cached/{subreddit}', function ($subreddit, \App\Services\Reddit\Js
         'articles' => $redditClient->getArticles($subreddit),
     ]);
 })->where('subreddit', '[A-Za-z0-9_\-]+');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
