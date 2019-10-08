@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(\GuzzleHttp\Client::class, function () {
+            return new \GuzzleHttp\Client([
+                'headers' => [ 'User-Agent' => 'Laravel/Training 0.1' ],
+            ]);
+        });
     }
 
     /**

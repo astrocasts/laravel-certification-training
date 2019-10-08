@@ -41,3 +41,15 @@ Route::get('users/{username}', function ($username) {
         'label' => 'inbox',
     ]);
 })->name('user.show');
+
+Route::get('r/{subreddit}', function ($subreddit, \App\Services\Reddit\RedditClient $redditClient) {
+    return view('reddit', [
+        'articles' => $redditClient->getArticles($subreddit),
+    ]);
+})->where('subreddit', '[A-Za-z0-9_\-]+');
+
+Route::get('r-cached/{subreddit}', function ($subreddit, \App\Services\Reddit\JsonDatabaseRedditClient $redditClient) {
+    return view('reddit', [
+        'articles' => $redditClient->getArticles($subreddit),
+    ]);
+})->where('subreddit', '[A-Za-z0-9_\-]+');
