@@ -12,8 +12,6 @@ class User extends Authenticatable
 
     public function __construct(array $attributes = [])
     {
-        print " [ a ]\n";
-
         parent::__construct($attributes);
     }
 
@@ -43,5 +41,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+
+        'is_admin' => 'boolean',
     ];
 }
