@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Reddit\CacheRedditClient;
 use App\Services\Reddit\GuzzleRedditClient;
 use App\Services\Reddit\RedditClient;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,11 @@ class RedditServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(RedditClient::class, GuzzleRedditClient::class);
+        $this->app->when(CacheRedditClient::class)
+            ->needs(RedditClient::class)
+            ->give(GuzzleRedditClient::class);
+
+        $this->app->singleton(RedditClient::class, CacheRedditClient::class);
     }
 
     /**
