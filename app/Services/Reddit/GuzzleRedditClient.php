@@ -28,6 +28,19 @@ class GuzzleRedditClient implements RedditClient
             abort($jsonResponse->getStatusCode());
         }
 
-        return json_decode($jsonResponse->getBody()->getContents(), true)['data']['children'];
+        $children = collect(json_decode(
+            $jsonResponse->getBody()->getContents(),
+            true
+        )['data']['children']);
+
+        return $children->pluck('data')->map(function($item) {
+            return collect($item)->only([
+                'title',
+                'subreddit',
+                'url',
+                'selftext',
+                'created'
+            ])->all();
+        });
     }
 }
